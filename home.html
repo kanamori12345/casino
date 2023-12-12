@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>カジノ</title>
+    </head>
+
+    <body>
+        <div class="main">
+            <div class="box">
+                <div class="tehuda" id="Dtehuda">   
+                    <!--ディーラートランプ画像-->
+                </div>
+            </div> 
+            <div class="box">
+                <div class="tehuda"id="Ptehuda">
+                    <!--プレイヤートランプ画像-->
+                </div>
+            </div>
+            <!--betした金額-->
+            <div class="betcoin">
+                <p id="betmoney"></p>
+            </div>
+
+            <div class="total">
+                <p class="Credit" onclick="plusmoney();printmoney();betcheck()">クレジット</p>
+                <p id="money"></p>
+            </div>
+
+            <div class="select" id="select">
+                <div class="abso" id="abso">
+                    <div id="tipaitem">
+                        <img src="tip/tip1.png" alt="1" class="tip" onclick="bet1()" id="1tip">
+                        <img src="tip/tip5.png" alt="5" class="tip" onclick="bet5()" id="5tip">
+                        <img src="tip/tip25.png" alt="25" class="tip" onclick="bet25()" id="25tip">
+                        <img src="tip/tip100.png" alt="100" class="tip" onclick="bet100()" id="100tip">
+                        <img src="tip/all.png" alt="all" class="tip" onclick="betall()" id="alltip">
+                    </div>
+                </div> 
+                <div class="abso2" id="abso2">     
+                    <div id="actionaitem">
+                        <img src="play/stand.png" alt="stand" class="action" onclick="stand()">
+                        <img src="play/hit.png" alt="hit" class="action" onclick="hit()">
+                        <img src="play/double.png" alt="double" class="action">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btbt" >
+                <div class ="next">
+                    <a href="#" class="nbtn-square-shadow" id="nbtn" >NEXT</a> 
+                </div>
+                <div class ="play">
+                    <a href="#" class="pbtn-square-shadow" id="pbtn">PLAY</a>
+                </div>
+            </div>
+            <!-- 結果表示 -->
+            <p id="kk"></p>
+        </div>
+
+        <script>
+            money=100;
+            betmoney=0;
+            var now= 1;
+            //1以外の合計値
+            var ptortal =0;
+            var dtortal =0;
+            //1の数
+            var ponect=0;
+            var donect=0;
+            //読み込み時
+            window.onload = function onLoad() {
+                document.getElementById("pbtn").style.display = 'none'; 
+                document.getElementById("nbtn").style.display = 'none';
+                document.getElementById("abso2").style.visibility = 'hidden';
+                
+                target = document.getElementById("money");
+                target.innerHTML = money;
+            }
+
+            //チップクリック時
+            function bet1() {
+                if(moneycheck(1)){
+                    money = money-1;
+                    betmoney = betmoney+1;
+                    printmoney()
+                    betcheck()
+                    btnvis()
+                }
+            }
+            
+            function bet5() {
+                if(moneycheck(5)){
+                    money = money-5;
+                    betmoney = betmoney+5;
+                    printmoney()
+                    betcheck()
+                    btnvis()
+                }
+            }
+            
+            function bet25() {
+                if(moneycheck(25)){
+                    money = money-25;
+                    betmoney = betmoney+25;
+                    printmoney()
+                    betcheck()
+                    btnvis()
+                }
+            }
+            
+            function bet100() {
+                if(moneycheck(100)){
+                    money = money-100;
+                    betmoney = betmoney+100;
+                    printmoney()
+                    betcheck()
+                    btnvis()
+                }
+            }
+            
+            function betall() {
+                if(money>0){
+                    console.log("betall()money：" + money)
+                    console.log("betall()betmoney：" + betmoney)
+                    betmoney = betmoney+money;
+                    money = 0;
+                    console.log("betall()money2：" + money)
+                    console.log("betall()betmoney2：" + betmoney)
+                    printmoney()
+                    betcheck()
+                    btnvis()
+                    console.log("betall()money3：" + money)
+                    console.log("betall()betmoney3：" + betmoney)
+                }
+            }
+            
+            //betしたらPLAYボタン出現
+            function btnvis(){
+                document.getElementById("pbtn").style.display = 'block';
+            }
+
+            //BET時、残高足りるか確認
+            function moneycheck(x){
+                if(money-x<0){
+                    return false;
+                }
+                    return true;
+            }
+            
+            //金の更新
+            function printmoney(){
+                if(now==1){
+                    target = document.getElementById("money");
+                    target.innerHTML = money;
+
+                    target = document.getElementById("betmoney");
+                    target.innerHTML = betmoney;
+                }
+            }
+            
+            //金を増やす
+            function plusmoney(){
+               if(now==1){
+                money=money+20;
+               }  
+            }
+            function betcheck2(){
+                console.log("betchch");
+            }
+            
+            //BET足りるチップか教える
+            function betcheck(){
+                if(money<100){
+                    let img = document.getElementById("100tip");
+                    img.src = "tip/tip100d.png";
+                }if(money<25){
+                    let img = document.getElementById("25tip");
+                    img.src = "tip/tip25d.png";
+                }if(money<5){
+                    let img = document.getElementById("5tip");
+                    img.src = "tip/tip5d.png";
+                }if(money<1){
+                    let img = document.getElementById("1tip");
+                    img.src = "tip/tip1d.png";
+                }if(money<=0){
+                    let img = document.getElementById("alltip");
+                    img.src = "tip/alld.png";
+                }
+
+                if(money>=100){
+                    let img = document.getElementById("100tip");
+                    img.src = "tip/tip100.png";
+                }if(money>=25){
+                    let img = document.getElementById("25tip");
+                    img.src = "tip/tip25.png";
+                }if(money>=5){
+                    let img = document.getElementById("5tip");
+                    img.src = "tip/tip5.png";
+                }if(money>=1){
+                    let img = document.getElementById("1tip");
+                    img.src = "tip/tip1.png";
+                }if(money>0){
+                    let img = document.getElementById("alltip");
+                    img.src = "tip/all.png";
+                }
+            }
+
+            //トランプ作成素材
+            const mark = ["1", "2", "3", "4"];
+            const num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,];
+            let result = [];
+            let resultcheck = [];
+            let pd=[];
+            var urach=1;
+            
+
+            // トランプを作成
+            for (let i = 0; i < mark.length; i++) {
+                for (let j = 0; j < num.length; j++) {
+                    let card = { num: num[j], mark: mark[i] };
+                    result.push(card);
+                }
+            }
+            
+            //PLAYボタン押したら
+            pbtn.onclick = () => {
+                
+                now=2;
+
+                document.getElementById("abso2").style.visibility = "visible";
+                document.getElementById('abso2').style.zIndex = 999;
+
+                document.getElementById("abso").style.visibility = 'hidden';
+                
+                document.getElementById("pbtn").style.display = 'none'; 
+                // document.getElementById("pbtn").style.visibility = 'hidden';
+                // document.getElementById('pbtn').style.zIndex = 0;
+
+
+                // シャッフル
+                for (let i = result.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * i);
+                    let temp = result[i];
+                    result[i] = result[j];
+                    result[j] = temp;
+                }
+                //使用済みカード確認用
+                for (let i = result.length - 1; i > 0; i--) {
+                    resultcheck[i] = true;
+                }
+
+                //コピー作成
+                for (let i = result.length - 1; i > 0; i--) {
+                    pd[i]=result[i].num;
+                }
+            
+                //カード生成
+                var newTag = document.createElement("img");
+                var filename
+                
+                //最初のPの手札二枚
+                for(let i = 1; i <3; i++){
+                    var newTag = document.createElement("img");
+                    console.log("最初の手札now：" + now)
+                    //console.log("最初の手札result[i].mark：" + result[i].mark)
+                    console.log("最初の手札nowresult[i].num：" + result[i].num)
+                    console.log("最初の手札now：" + now)
+                    filename= "tramp/"+result[i].mark+result[i].num+".png"
+                    newTag.src=filename;
+                    newTag.id = "c"+i;
+                    Ptehuda.appendChild(newTag);
+                    resultcheck[i] = false;
+                    acheckp(i);
+                }
+                
+
+                //Dの最初の手札
+                var newTag = document.createElement("img");
+                filename= "tramp/"+result[3].mark+result[3].num+".png"
+                newTag.src=filename;
+                newTag.id = "c"+3;
+                Dtehuda.appendChild(newTag);
+                resultcheck[3] = false;
+                acheckd(3);
+
+                //Dのもう一枚裏向き画像
+                var newTag = document.createElement("img");
+                filename= "tramp/"+666+".png"
+                newTag.src=filename;
+                newTag.id = "uraimg";
+                newTag.id = "uraimg";
+                Dtehuda.appendChild(newTag);
+
+                firstbjcheck()
+            }
+            
+            //Pの最初の手札がBJか確認
+            function firstbjcheck(){
+                if(pd[1]==10&&pd[2]==1){
+                    now=5;
+                }
+                if(pd[2]==10&&pd[1]==1){
+                    now=5;
+                }
+                nowcheck()
+            }   
+            
+            //PがBJだった場合、Dも一枚追加しBJになるか確認
+            function dealerbjch(){
+                if(result[3].num>=10||result[3].num==1){
+                    urach=0;
+                    var generatedImage = document.getElementById("uraimg");
+                    generatedImage.remove();
+                    var newTag = document.createElement("img");
+                    filename= "tramp/"+result[4].mark+result[4].num+".png"
+                    newTag.src=filename;
+                    newTag.id = "c"+4;
+                    Dtehuda.appendChild(newTag);
+                    if(result[3].num>=10&&result[4].num==1){
+                        now=7;
+                    }else{
+                        now=6;
+                    }
+                    if(result[3].num==1&&result[4].num>=10){
+                        now=7;
+                    }else{
+                        now=6;
+                    }
+                }else{
+                    now=6;
+                }  
+                nowcheck()        
+            }
+            
+            //hit押したとき
+            function hit(){
+                console.log("hit()後now：" + now)
+                if(now==2||now==3){
+                    let ch = 0;
+                    for(let i = 1;ch==0; i++){
+                        if(resultcheck[i] == true){
+                            var newTag = document.createElement("img");
+                            filename= "tramp/"+result[i].mark+result[i].num+".png"
+                            newTag.src=filename;
+                            newTag.id = "c"+i;
+                            Ptehuda.appendChild(newTag);
+                            resultcheck[i] = false;   
+                            ch=1;
+                            console.log("acheckp()前 resultcheck[]：" + resultcheck)
+                            console.log("acheckp()前：" + now)
+                            acheckp(i);
+                            console.log("i：" + i)
+                            console.log("acheckp()前now：" + now)
+                            
+                            if(ptortal+ponect<=21){
+                                console.log("21以下ptortal：" + ptortal)
+                                console.log("21以下ponect：" + ponect)
+                                now=3;
+                            }else{
+                                console.log("21以上ptortal：" + ptortal)
+                                console.log("21以上ponect：" + ponect)
+                                now=9;
+                            }
+                        }
+                    }
+                    console.log("nowcheck()前：" + now)
+                    nowcheck()   
+                    console.log("nowcheck()後：" + now)
+                }
+            }
+                
+            //stand押したとき
+            function stand(){
+                if(now==2||now==3){
+                    now=4;
+                    console.log("stand()nowcheck前now：" + now)
+                    nowcheck()  
+
+                }
+            }
+
+            //stand押されたら
+            //ディーラー一枚追加のコード
+            function dealerfirstplus(){
+                if(now==4){
+                    now=10;
+                    var ch=0;
+                    for(let i = 1;ch==0; i++){
+                        if(resultcheck[i] == true){
+                            urach=0;
+                            var generatedImage = document.getElementById("uraimg");
+                            generatedImage.remove();
+                            var newTag = document.createElement("img");
+                            filename= "tramp/"+result[i].mark+result[i].num+".png"
+                            newTag.src=filename;
+                            newTag.id = "c"+i;
+                            Dtehuda.appendChild(newTag);
+                            resultcheck[i] = false;   
+                            ch=1; 
+                            acheckd(i);
+                            console.log("orvercheckd()前now：" + now)
+                            if(orvercheckd()){
+                                now=10;
+                                console.log("dealerplus()dealerpluscheck前now：" + now)
+                                dealerpluscheck()
+                            }else{
+                                now=8;
+                            }
+                        }
+                    }
+                    console.log("dealerplus()終了nowcheck前now：" + now)
+                    nowcheck()
+                    console.log("dealerplus()終了nowcheck後now：" + now)
+                }
+            }
+            //2枚目以降オート追加
+
+            function dealerplus(){
+                now=11;
+                var ch=0;
+                for(let i = 1;ch==0; i++){
+                    if(resultcheck[i] == true){
+                        var newTag = document.createElement("img");
+                        filename= "tramp/"+result[i].mark+result[i].num+".png"
+                        newTag.src=filename;
+                        newTag.id = "c"+i;
+                        Dtehuda.appendChild(newTag);
+                        resultcheck[i] = false;   
+                        ch=1; 
+                        acheckd(i);
+                        console.log("orvercheckd()前now：" + now)
+                        if(orvercheckd()){
+                            console.log("dealerplus()dealerpluscheck前now：" + now)
+                            dealerpluscheck()
+                        }else{
+                            now=8;
+                        }
+                    }
+                }
+                console.log("dealerplus()終了nowcheck前now：" + now)
+                nowcheck()
+                console.log("dealerplus()終了nowcheck後now：" + now)
+
+            }
+            
+            //1ならカウント、1以外なら合計に足す
+            //プレイヤー
+            function acheckp(x){
+                console.log("acheckp()開始now：" + now)
+                console.log("acheckp()開始pd[]：" + pd[x])
+                if(pd[x]!=1){
+                    if(pd[x]>=10){
+                        pd[x]=10;
+                        ptortal=ptortal+pd[x];
+                    }else{
+                        ptortal=ptortal+pd[x];    
+                    }   
+                }else{
+                    ponect = ponect+1;
+                }
+                console.log("acheckp()終了ptortal：" + ptortal)
+                console.log("acheckp()終了ponect：" + ponect)
+
+                console.log("acheckp()終了now：" + now)
+                console.log("acheckp()終了pd[]：" + pd[x])
+            }
+
+
+            //1ならカウント、1以外なら合計に足す
+            //ディーラー
+            function acheckd(x){
+                console.log("acheckd()開始now：" + now)
+                console.log("acheckd()開始pd[]：" + pd[x])
+                if(pd[x]!=1){
+                    if(pd[x]>=10){
+                        pd[x]=10;
+                        dtortal=dtortal+pd[x];
+                    }else{
+                        dtortal=dtortal+pd[x];    
+                    }   
+                }else{
+                    donect = donect+1;
+                }
+                console.log("acheckd()終了dtortal：" + dtortal)
+                console.log("acheckd()終了donect：" + donect)
+
+                console.log("acheckd()終了now：" + now)
+                console.log("acheckd()終了pd[]：" + pd[x])
+            }
+
+            //21超えてないならtrue
+            //ディーラー
+            function orvercheckd(){
+                console.log("orvercheckd()開始now：" + now)
+                if(dtortal+(donect*11)<=21){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+            //ディーラーもう一枚追加するか確認
+            //17以下なら追加17以上ならバトル
+            function dealerpluscheck(){
+                console.log("dealerpluscheck()開始now：" + now)
+                if(dtortal+(donect*11)<17){
+                    now=10;
+                }else{
+                    now=12;
+                }  
+                console.log("dealerpluscheck()終了now：" + now)
+            }
+            
+            //どっちが21に近いか勝負
+            function buttle(){
+                console.log("buttle()開始 now：" + now)
+                var pt=0;
+                var dt=0;
+                pt=ptortal+ponect;
+                dt=dtortal+(donect*11);
+                if(ponect>0){
+                    for(let i= 1;i<=ponect; i++){
+                        if(pt+10<=21){
+                            pt=pt+10;
+                        }
+                    }
+                }
+                if(pt>dt){
+                    now=8;
+                }
+                if(pt<dt){
+                    now=9;
+                }
+                if(pt==dt){
+                    now=7;
+                }
+                console.log("buttle() pt：" + pt)
+                console.log("buttle() dt：" + dt)
+                console.log("buttle()終了 nowcheck前 now：" + now)
+                nowcheck()
+                console.log("buttle()終了 nowcheck後 now：" + now)
+            }
+            
+            function recovery(){
+                if(now==6){
+                    money = money+Math.floor(betmoney*2.5);
+                    betmoney=0;
+                    var res = "BJで勝ち";
+                }else if(now==7){
+                    money = money+betmoney;
+                    betmoney=0;
+                    var res = "引き分け";
+                }else if(now==8){
+                    money = money+betmoney*2;
+                    betmoney=0;
+                    var res = "勝ち";
+                }else if(now==9){
+                    betmoney=0;
+                    var res = "負け";
+                }
+                console.log(res)
+                result=document.getElementById("kk")
+                result.innerText = res;
+                now=13;   
+                end()
+            }
+            //now
+            //0.stay
+            //1.最初
+            //2.プレイボタン押した後
+            //3.ヒット押したら
+            //4.スタンド押したら
+            //5.Pが最初にBJ
+            //6.BJ勝ち
+            //7.引き分け
+            //8.勝ち
+            //9.負け
+            //10.D追加
+            //11.D追加終了
+            //12.バトル開始
+            //13.終了
+            
+            function nowcheck(){
+                if(now==6){
+                    recovery()
+                }else if(now==7){
+                    recovery()
+                }else if(now==8){
+                    recovery()
+                }else if(now==9){
+                    recovery()
+                }else if(now==10){
+                    dealerplus()
+                }else if(now==12){
+                    buttle()
+                }else if(now==4){
+                    dealerfirstplus()
+                }else if(now==5){
+                    now=0;
+                    dealerbjch()
+                }
+            }
+
+            function end(){
+                document.getElementById("nbtn").style.display = 'block';
+            }
+            
+            nbtn.onclick = () => {
+            // function next(){
+                document.getElementById("nbtn").style.display = 'none';
+                console.log("next：")
+                if(now==13){
+                    result=document.getElementById("kk")
+                    result.innerText = "";
+
+                    console.log("next()開始 now：" + now)
+                    if(urach==1){
+                        var list_element = document.getElementById("uraimg");
+                        list_element.remove();
+                    }
+
+                    var ch=0;
+                    
+                    for(let i = 1;ch==0;i++){
+                        console.log("最後　カード削除i：" + i)
+                        console.log("最後　カード削除resultcheck[i]：" + resultcheck[i])
+                        if(resultcheck[i] == false){
+                            var list_element = document.getElementById("c"+i);
+                            list_element.remove();
+                        }else{
+                            ch=1;
+                        }
+                    }
+                    console.log("next()中間 now：" + now)
+                    now=1;
+                    console.log("next()中間 now：" + now)
+                    document.getElementById("abso2").style.visibility = "hidden";
+                    document.getElementById('abso2').style.zIndex = 0;
+                    document.getElementById("abso").style.visibility = 'visible';
+
+                    betcheck()
+                    printmoney()
+
+                    ptortal=0;
+                    ponect=0;
+                    dtortal=0;
+                    donect=0;
+                    urach=1;
+
+                    console.log("next()終了 now：" + now)
+                    
+                    result = [];
+                    resultcheck = [];
+                    pd=[];
+
+                    // トランプを作成
+                    for (let i = 0; i < mark.length; i++) {
+                        for (let j = 0; j < num.length; j++) {
+                            let card = { num: num[j], mark: mark[i] };
+                            result.push(card);
+                        }
+                    }
+
+                } 
+            }
+            
+            
+        </script> 
+    </body>
+</html>
+

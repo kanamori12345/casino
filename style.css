@@ -1,0 +1,171 @@
+body {
+    background-color: #32cd32;
+    margin: 0;
+    text-align: center;
+    height: 100vh;
+}
+
+.main{
+    width: 100%;
+}
+.box {
+    /*白い四角枠*/
+    width: 300px;
+    height: 150px;
+    border: 5px solid #fff;
+    background-color: transparent;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.tehuda{
+    /*トランプが表示される要素*/
+    display: flex;
+    justify-content: center;
+}
+
+.tramp{
+    /*トランプの画像*/
+    height: 150px;
+}
+
+.betcoin{
+    /*白枠円*/
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: solid 5px #fff;
+    margin: 20px auto ;
+}
+
+#betmoney{
+    /*BETした金額*/
+    color: #fff;
+    margin-top: 27px;
+}
+
+.total{
+    /*クレジットの文字と残高が表示されるスペース*/
+    border-bottom: 2px solid #000000;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    height: 20px;
+    background-color: #7e7e7e;
+    display: table;
+}
+
+.Credit{
+    /*クレジットの文字*/
+    color: #fff;
+    display: table-cell;
+    text-align: left;
+}
+
+#money{
+    /*残高*/
+    color: #fff;
+    display: table-cell;
+    text-align: right;
+}
+
+.select{
+    /*コインとかアクションボタンのスペース*/
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    height: 100px;
+    background-color: #7e7e7e;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+.tip{
+    /*カジノチップ画像*/    
+    margin-top: 8px;
+    margin-right: auto;
+    margin-left: 8px;
+    width: 80px;
+    height: 80px;
+    
+    
+}
+.action{
+    /*スタンドヒットなどのアクションボタン*/
+    margin-top: 8px;
+    width: 80px;
+    height: 80px;
+    
+    
+}
+.abso,.abso2{
+    position: absolute;
+}
+.abso{
+    z-index :100;
+}
+.abso2{
+    z-index :1;
+}
+.play,.next{
+    /*プレイボタン位置決め*/
+    position: absolute;
+    right: 0px;
+    text-align:right;
+    padding-right: 10px;
+}
+.play{
+    z-index :100;
+}
+.next{
+    z-index :1;
+}
+.btbt{
+    width: 100%;
+}
+.pbtn-square-shadow {
+    /*PLAYボタンデザイン*/
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+  }
+  
+  .nbtn-square-shadow {
+    /*NEXTボタンデザイン*/
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #d86666;
+    color: #FFF;
+    border-bottom: solid 4px #956262;
+    border-radius: 3px;
+  }
+
+
+  .pbtn-square-shadow:active {
+    /*ボタンを押したとき*/
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+  }
+
+  .nbtn-square-shadow:active {
+    /*ボタンを押したとき*/
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
+    border-bottom: none;
+  }
+
+  #kk{
+    font-size: 30px;
+  }
